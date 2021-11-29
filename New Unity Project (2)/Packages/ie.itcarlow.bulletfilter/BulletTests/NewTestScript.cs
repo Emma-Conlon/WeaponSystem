@@ -30,11 +30,9 @@ public class NewTestScript
     {
         GameObject bl = GameObject.Find("Bullet");
         //bl.GetComponent<BulletControl>().fire();    
-           float initialXPos = bl.transform.position.x;
-            yield return new WaitForSeconds(0.1f);
-            Assert.Greater(-bl.transform.position.x, initialXPos);
-        
-
+        float initialXPos = bl.transform.position.x;
+        yield return new WaitForSeconds(0.1f);
+        Assert.Greater(-bl.transform.position.x, initialXPos);
     }
 
     [UnityTest]
@@ -45,6 +43,16 @@ public class NewTestScript
         float initialXPos = br.transform.position.x;
         yield return new WaitForSeconds(0.1f);
         Assert.Greater(br.transform.position.x, initialXPos);
+    }
+
+    [UnityTest]
+    public IEnumerator BulletCollisionTest()
+    {
+        GameObject br = GameObject.Find("Bullet");
+        Assert.IsNotNull(br);
+        yield return new WaitForSeconds(2.0f);
+        br = GameObject.Find("Bullet");
+        Assert.IsNull(br);
     }
 
 }
