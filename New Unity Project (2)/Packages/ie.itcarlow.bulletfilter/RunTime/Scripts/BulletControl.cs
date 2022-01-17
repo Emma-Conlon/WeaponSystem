@@ -8,7 +8,7 @@ public class BulletControl : MonoBehaviour
     public float fireRate = 0.5f;
     public float nextFire = 0.0f;
     Vector2 bulletPos;
-    public int DIRECTION = 1;
+    public int DIRECTION = -1;
     public GameObject player;
     public GameObject Bullet;
 

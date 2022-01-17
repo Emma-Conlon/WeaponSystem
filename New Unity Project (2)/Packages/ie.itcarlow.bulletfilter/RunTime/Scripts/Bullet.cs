@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     public float vely = 0.0f;
     public Rigidbody2D rb;
     private BulletControl _bulletController;
-
+    double ammo = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,22 +19,30 @@ public class Bullet : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {       
-        if(_bulletController.getDirection() == 1)
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.velocity = new Vector2(velx, vely);
+            if (_bulletController.getDirection() == 1)
+            {
+
+                Rigidbody2D bulletClone = (Rigidbody2D)Instantiate(rb, transform.position, transform.rotation);
+                rb.velocity = new Vector2(velx, vely);
+            }
+            else
+            {
+
+                Rigidbody2D bulletClone = (Rigidbody2D)Instantiate(rb, transform.position, transform.rotation);
+                rb.velocity = new Vector2(-velx, vely);
+            }
         }
-        else
-        {
-            rb.velocity = new Vector2(-velx, vely);
-        }
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Player")
+        if (collision.gameObject.tag == "block")
         {
-            Object.Destroy(this.gameObject);
+            //Object.Destroy(this.gameObject);
         }
     }
 }
