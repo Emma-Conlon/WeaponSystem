@@ -5,13 +5,14 @@ using UnityEngine;
 public class BulletManager : MonoBehaviour
 {
     public GameObject bulletPrefab;
+    public GameObject rapid_prefab;
     public float bulletMoveSpeed;
     public float bulletLifeTime;
     public int MAX_BULLETS;
     public int currentBulletTotal = 0;
     public int DIRECTION = 0;
-    private const int maxSteamAmmo = 5;
-    public int steamAmmo = maxSteamAmmo;
+    private const int maxRapidAmmo = 15;
+    public int rapidAmmo = maxRapidAmmo;
     /// <summary>
     /// Decrease the number of active bullets
     /// </summary>
@@ -43,6 +44,32 @@ public class BulletManager : MonoBehaviour
         bulletPrefab.GetComponent<Bullet>().lifetime = bulletLifeTime;
         Instantiate(bulletPrefab);
     }
+    public void shootRapid()
+    {
+        rapid_prefab.GetComponent<Bullet>().bulletManager = this;
+        rapid_prefab.GetComponent<Bullet>().speed = bulletMoveSpeed;
+        rapid_prefab.GetComponent<Bullet>().lifetime = bulletLifeTime;
+        //bulletPrefab.GetComponent<Bullet>().damage = damage;
+        Instantiate(rapid_prefab);
+        rapidAmmo--;
+        print(rapidAmmo);
+    }
+
+    public void choosenormal()
+    {
+
+        bulletMoveSpeed = 20.0f;
+        bulletLifeTime = 1.5f;
+
+    }
+    public void chooseRapid()
+    { 
+          
+       MAX_BULLETS = 2;
+       bulletMoveSpeed = 40.0f;
+       bulletLifeTime = 1.0f;
+    }
+
 
     public bool canFire()
     {

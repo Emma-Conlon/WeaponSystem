@@ -39,16 +39,10 @@ public class Bullet : MonoBehaviour
     }
 
      void OnTriggerEnter2D(Collider2D t_other)
-    {
-
-
-          bulletManager.decreaseBullets(); // decrease total number of bullets
-          StopCoroutine("livingTime"); // stop the co-routine before destroying
-       
-            
-            
-        
-    }
+     {
+         bulletManager.decreaseBullets(); // decrease total number of bullets
+         StopCoroutine("livingTime"); // stop the co-routine before destroying  
+     }
 
 
     IEnumerator livingTime()

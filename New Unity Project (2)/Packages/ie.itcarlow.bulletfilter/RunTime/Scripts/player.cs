@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 enum  SECTION{
-    PISTOL,
+    PISTOL, //default weapon
     RAPID,
     CUSTOM,
 }
@@ -54,9 +54,22 @@ public class player : MonoBehaviour
         {
             _timeBetweenShots = c.time_S;
         }
-        
-    }
 
+        if (choose == SECTION.RAPID)
+        {
+            _bulletManager.chooseRapid();
+            _timeBetweenShots = 2.0f;
+            print("RAPID");
+        }
+        if (choose == SECTION.PISTOL)
+        {
+            _bulletManager.choosenormal();
+            _timeBetweenShots = 0.25f;
+            print("PISTOL");
+        }
+
+    }
+   
     void updatePlayerAnimationStates()
     {
         
@@ -76,17 +89,26 @@ public class player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (_bulletManager.DIRECTION == 0)
+            if (choose == SECTION.RAPID && GetComponent<BulletManager>().rapidAmmo > 0)
             {
-                print("PICK DIRECTION");
+                rapid_fire_shoooting();
             }
-            else
+            if (choose == SECTION.PISTOL)
             {
-                handleIdlePlayerShooting();
+                pistol_shooting();
             }
                
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
 
+            choose = SECTION.RAPID;
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+
+            choose = SECTION.PISTOL;
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
 
@@ -99,7 +121,7 @@ public class player : MonoBehaviour
         }
     }
 
-    public void handleIdlePlayerShooting()
+    public void pistol_shooting()
     {
         _isShooting = true;
         idleshoot = true;
@@ -113,6 +135,19 @@ public class player : MonoBehaviour
         StartCoroutine("shootingCooldown");
     }
 
+    public void rapid_fire_shoooting()
+    {
+        _isShooting = true;
+        idleshoot = true;
+        // if (_gunManager.getCurrentGun() == Gun.SteamPunk)
+        // / {
+        //      Vector2 temp = _rb.velocity;
+        //     temp.x = (direction * -1) * 10;
+        //     _rb.velocity = temp;
+        //  }
+        _bulletManager.shootRapid();
+        StartCoroutine("shootingCooldown");
+    }
    
     IEnumerator shootingCooldown()
     {
