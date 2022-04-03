@@ -1,48 +1,63 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Bullet : MonoBehaviour
 {
-    public float velx = 5.0f;
-    public float vely = 0.0f;
-    public Rigidbody2D rb;
-    private BulletControl _bulletController;
-    double ammo = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        _bulletController = GetComponent<BulletControl>();
-    }
+    public BulletManager bulletManager;
+    public float bulletDirection;
+    public float speed;
+    public float lifetime;
 
     // Update is called once per frame
-    void Update()
+
+    void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        StartCoroutine("livingTime");
+        bulletDirection = 1;
+        bulletManager.increaseBullets();
+        if (bulletManager.DIRECTION == -1)
         {
-            if (_bulletController.getDirection() == 1)
-            {
-
-                Rigidbody2D bulletClone = (Rigidbody2D)Instantiate(rb, transform.position, transform.rotation);
-                rb.velocity = new Vector2(velx, vely);
-            }
-            else
-            {
-
-                Rigidbody2D bulletClone = (Rigidbody2D)Instantiate(rb, transform.position, transform.rotation);
-                rb.velocity = new Vector2(-velx, vely);
-            }
+            transform.position = new Vector3(transform.position.x - 1.25f, transform.position.y - 0.8f, transform.position.z);
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
-       
+        else
+        {
+            
+            transform.position = new Vector3(transform.position.x + 1.25f,transform.position.y - 0.8f,transform.position.z);
+            
+        }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Update()
     {
-        if (collision.gameObject.tag == "block")
-        {
-            //Object.Destroy(this.gameObject);
-        }
+
+       
+       transform.position += new Vector3((bulletManager.DIRECTION * speed) * Time.deltaTime, 0);
+        
+     
+    }
+
+     void OnTriggerEnter2D(Collider2D t_other)
+    {
+
+
+          bulletManager.decreaseBullets(); // decrease total number of bullets
+          StopCoroutine("livingTime"); // stop the co-routine before destroying
+       
+            
+            
+        
+    }
+
+
+    IEnumerator livingTime()
+    {
+        yield return new WaitForSeconds(lifetime);
+
+        bulletManager.decreaseBullets(); // decrease total number of bullets
+        Destroy(gameObject); // destroy this after a set amount of time
+
+        yield break;
     }
 }

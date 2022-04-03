@@ -7,6 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2835408095091739268, guid: fcd7b2d985341784cbe08130cd1bea8d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2835408095091739268, guid: fcd7b2d985341784cbe08130cd1bea8d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2835408095091739268, guid: fcd7b2d985341784cbe08130cd1bea8d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4509930979820342111, guid: fcd7b2d985341784cbe08130cd1bea8d,
         type: 3}
       propertyPath: m_RootOrder
@@ -76,6 +91,11 @@ PrefabInstance:
         type: 3}
       propertyPath: DIRECTION
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6401637378458729584, guid: fcd7b2d985341784cbe08130cd1bea8d,
+        type: 3}
+      propertyPath: m_Name
+      value: RapidFire
       objectReference: {fileID: 0}
     - target: {fileID: 7683923543128969529, guid: fcd7b2d985341784cbe08130cd1bea8d,
         type: 3}
