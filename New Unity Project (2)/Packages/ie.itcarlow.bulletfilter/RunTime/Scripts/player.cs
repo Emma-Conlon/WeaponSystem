@@ -49,8 +49,8 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        updatePlayerAnimationStates();
-        if(choose == SECTION.CUSTOM)
+        getShootInput();
+        if (choose == SECTION.CUSTOM)
         {
             _bulletManager.chooseCustom();
             _timeBetweenShots = c.time_shoots.value;
@@ -94,16 +94,7 @@ public class player : MonoBehaviour
         _bulletManager.choosenormal();
         _timeBetweenShots = 0.25f;
     }
-    void updatePlayerAnimationStates()
-    {
-        
-            getShootInput();
-        
 
-        Vector3 temp = transform.localScale;
-        if (temp.x < 0) { direction = 1; }
-        if (temp.x > 0) { direction = -1; }
-    }
 
    
 
