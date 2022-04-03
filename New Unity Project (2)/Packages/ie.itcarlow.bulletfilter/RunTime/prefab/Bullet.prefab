@@ -146,4 +146,4 @@ MonoBehaviour:
   bulletManager: {fileID: 0}
   bulletDirection: -1
   speed: 20
-  lifetime: 2
+  lifetime: 1.5

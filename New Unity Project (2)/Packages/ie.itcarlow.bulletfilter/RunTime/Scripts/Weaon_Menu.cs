@@ -4,18 +4,19 @@ using UnityEngine.UI;
 
 public class Weaon_Menu : MonoBehaviour
 {
-    public AmmoManager ammo;
-    public enumManager mon;
+    public BulletManager _bullet;
     public  GameObject menu;
     public Weapons selection;
+    public player S;
     private bool select;
     public GameObject rapidf;
     public GameObject pistols;
+    public GameObject customf;
     public Text weapon;
     // Start is called before the first frame update
     void Start()
     {
-        mon = this.GetComponent<enumManager>();
+       
        
         select = false;
         selection = Weapons.PISTOL;
@@ -45,18 +46,23 @@ public class Weaon_Menu : MonoBehaviour
 
     public void pistol()
     {
-        selection = Weapons.PISTOL;
-        ammo.Ammochange(selection);
+        _bullet.choosenormal();
+        S.chooseN();
         weapon.text = "Pistol";
         rapidf.SetActive(false);
         pistols.SetActive(true);
         Debug.Log("PISTOL");
     }
-   
+    public void custom()
+    {
+        _bullet.chooseC();
+        S.chooseC();
+    }
     public void rapid()
     {
-        selection = Weapons.RAPID_FIRE;
-        ammo.Ammochange(selection);
+        _bullet.chooseR();
+         S.chooseR();
+        //ammo.Ammochange(selection);
         weapon.text = "Shootgun";
         rapidf.SetActive(true);
         pistols.SetActive(false);

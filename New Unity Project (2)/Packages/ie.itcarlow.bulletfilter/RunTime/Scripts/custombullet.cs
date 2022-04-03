@@ -5,7 +5,7 @@ using UnityEngine;
 public class custombullet : MonoBehaviour
 {
     public custom c;
-    public custombulletmanager bulletManager;
+    public BulletManager bulletManager;
     public float bulletDirection;
     public float speed;
     public float lifetime;
@@ -17,22 +17,22 @@ public class custombullet : MonoBehaviour
         StartCoroutine("livingTime");
         bulletDirection = 1;
         bulletManager.increaseBullets();
-        speed = c.time_Sp;
-        lifetime = c.time_L;
+        speed = c.time_sp.value;
+        lifetime = c.time_l.value;
     }
 
     void Update()
     {
         speed = c.time_Sp;
-        lifetime= c.time_L;
+        lifetime = c.time_L;
         if (bulletManager.DIRECTION == 1)
         {
-            transform.position += new Vector3((bulletManager.DIRECTION * c.time_Sp) * Time.deltaTime, 0);
+            transform.position += new Vector3((bulletManager.DIRECTION * c.time_sp.value) * Time.deltaTime, 0);
         }
         if (bulletManager.DIRECTION == -1)
         {
             speed = speed * -1;
-            transform.position += new Vector3((bulletManager.DIRECTION * c.time_Sp) * Time.deltaTime, -1);
+            transform.position += new Vector3((bulletManager.DIRECTION * c.time_sp.value) * Time.deltaTime, -1);
             print("LEFT" + speed);
         }
     }
@@ -56,7 +56,7 @@ public class custombullet : MonoBehaviour
 
     IEnumerator livingTime()
     {
-        yield return new WaitForSeconds(c.time_L);
+        yield return new WaitForSeconds(c.time_l.value);
 
         bulletManager.decreaseBullets(); // decrease total number of bullets
         Destroy(gameObject); // destroy this after a set amount of time

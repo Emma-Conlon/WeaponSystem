@@ -36,7 +36,7 @@ public class custombulletmanager : MonoBehaviour
     /// </summary>
     public void shootBullet()
     {
-        bulletPrefab.GetComponent<custombullet>().bulletManager = this;
+      //  bulletPrefab.GetComponent<custombullet>().bulletManager = this;
         bulletPrefab.GetComponent<Bullet>().speed = bulletMoveSpeed;
         bulletPrefab.GetComponent<Bullet>().lifetime = bulletLifeTime;
         Instantiate(bulletPrefab);

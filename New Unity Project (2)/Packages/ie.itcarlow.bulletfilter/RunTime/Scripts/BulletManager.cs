@@ -5,14 +5,16 @@ using UnityEngine;
 public class BulletManager : MonoBehaviour
 {
     public GameObject bulletPrefab;
+    public GameObject custom_prefab;
     public GameObject rapid_prefab;
+    public custom c;
     public float bulletMoveSpeed;
     public float bulletLifeTime;
-    public int MAX_BULLETS;
+    public float MAX_BULLETS;
     public int currentBulletTotal = 0;
     public int DIRECTION = 0;
     private const int maxRapidAmmo = 15;
-    public int rapidAmmo = maxRapidAmmo;
+    public float rapidAmmo = maxRapidAmmo;
     /// <summary>
     /// Decrease the number of active bullets
     /// </summary>
@@ -44,6 +46,17 @@ public class BulletManager : MonoBehaviour
         bulletPrefab.GetComponent<Bullet>().lifetime = bulletLifeTime;
         Instantiate(bulletPrefab);
     }
+    public void shootCustom()
+    {
+        custom_prefab.GetComponent<Bullet>().bulletManager = this;
+        custom_prefab.GetComponent<Bullet>().speed = bulletMoveSpeed;
+        custom_prefab.GetComponent<Bullet>().lifetime = bulletLifeTime;
+        //bulletPrefab.GetComponent<Bullet>().damage = damage;
+        Instantiate(custom_prefab);
+        rapidAmmo--;
+        print(rapidAmmo);
+    }
+    
     public void shootRapid()
     {
         rapid_prefab.GetComponent<Bullet>().bulletManager = this;
@@ -54,7 +67,6 @@ public class BulletManager : MonoBehaviour
         rapidAmmo--;
         print(rapidAmmo);
     }
-
     public void choosenormal()
     {
 
@@ -69,8 +81,31 @@ public class BulletManager : MonoBehaviour
        bulletMoveSpeed = 40.0f;
        bulletLifeTime = 1.0f;
     }
+    public void chooseCustom()
+    {
 
-
+        bulletMoveSpeed = c.time_sp.value;
+        print("cust" + bulletMoveSpeed);
+        bulletLifeTime = c.time_l.value;
+        MAX_BULLETS = c.time_b.value;
+    }
+    public void chooseC()
+    {
+        bulletMoveSpeed = c.time_sp.value;
+        print("cust" + bulletMoveSpeed);
+        bulletLifeTime = c.time_l.value;
+        MAX_BULLETS = c.time_b.value;
+        rapidAmmo = c.time_a.value;
+       
+      
+}
+    public void chooseR()
+    {
+        MAX_BULLETS = 2;
+        bulletMoveSpeed = 40.0f;
+        bulletLifeTime = 1.0f;
+        rapidAmmo = 15;
+    }
     public bool canFire()
     {
         return currentBulletTotal < MAX_BULLETS;

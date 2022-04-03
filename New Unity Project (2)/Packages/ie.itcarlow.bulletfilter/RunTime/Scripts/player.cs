@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-enum  SECTION{
+public enum  SECTION{
     PISTOL, //default weapon
     RAPID,
     CUSTOM,
@@ -9,7 +9,7 @@ enum  SECTION{
 
 public class player : MonoBehaviour
 {
-    SECTION choose;
+     SECTION choose;
     private Animator _animator;
     private Rigidbody2D _rb;
     public custom c;
@@ -52,7 +52,8 @@ public class player : MonoBehaviour
         updatePlayerAnimationStates();
         if(choose == SECTION.CUSTOM)
         {
-            _timeBetweenShots = c.time_S;
+            _bulletManager.chooseCustom();
+            _timeBetweenShots = c.time_shoots.value;
         }
 
         if (choose == SECTION.RAPID)
@@ -69,7 +70,30 @@ public class player : MonoBehaviour
         }
 
     }
-   
+   public void chooseR()
+    {
+        print("SELECTED");
+        choose = SECTION.RAPID;
+        _bulletManager.chooseRapid();
+        _timeBetweenShots = 2.0f;
+        
+    }
+    public void chooseC()
+    {
+        print(c.time_A);
+        choose = SECTION.CUSTOM;
+        _bulletManager.chooseC();
+        _timeBetweenShots = c.time_shoots.value;
+
+    }
+
+    public void chooseN()
+    {
+        print("SELECTED");
+        choose = SECTION.PISTOL;
+        _bulletManager.choosenormal();
+        _timeBetweenShots = 0.25f;
+    }
     void updatePlayerAnimationStates()
     {
         
@@ -93,22 +117,17 @@ public class player : MonoBehaviour
             {
                 rapid_fire_shoooting();
             }
+            if (choose == SECTION.CUSTOM && GetComponent<BulletManager>().rapidAmmo > 0)
+            {
+               custom_fire_shoooting();
+            }
             if (choose == SECTION.PISTOL)
             {
                 pistol_shooting();
             }
                
         }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-
-            choose = SECTION.RAPID;
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-
-            choose = SECTION.PISTOL;
-        }
+      
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
 
@@ -123,32 +142,23 @@ public class player : MonoBehaviour
 
     public void pistol_shooting()
     {
-        _isShooting = true;
-        idleshoot = true;
-       // if (_gunManager.getCurrentGun() == Gun.SteamPunk)
-      // / {
-      //      Vector2 temp = _rb.velocity;
-       //     temp.x = (direction * -1) * 10;
-       //     _rb.velocity = temp;
-      //  }
+        
         _bulletManager.shootBullet();
         StartCoroutine("shootingCooldown");
     }
 
     public void rapid_fire_shoooting()
     {
-        _isShooting = true;
-        idleshoot = true;
-        // if (_gunManager.getCurrentGun() == Gun.SteamPunk)
-        // / {
-        //      Vector2 temp = _rb.velocity;
-        //     temp.x = (direction * -1) * 10;
-        //     _rb.velocity = temp;
-        //  }
+       
         _bulletManager.shootRapid();
         StartCoroutine("shootingCooldown");
     }
-   
+    public void custom_fire_shoooting()
+    {
+       
+        _bulletManager.shootCustom();
+        StartCoroutine("shootingCooldown");
+    }
     IEnumerator shootingCooldown()
     {
         yield return new WaitForSeconds(_timeBetweenShots);

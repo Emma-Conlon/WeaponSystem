@@ -9,6 +9,11 @@ public class custom : MonoBehaviour
     public float time_A;
     public float time_B;
     public float time_S;
+    public float sp;
+    public float l;
+    public float a;
+    public float b;
+    public float s;
     public Text time_shootsText;
     public Slider time_shoots;
     public Text time_bText;
@@ -26,28 +31,40 @@ public class custom : MonoBehaviour
 
     public void textUpdate(float value)
     {
-        time_shootsText.text = Mathf.RoundToInt(time_shoots.value * 100.0f) + "%";
-        time_S = value;
+        time_shootsText.text = Mathf.RoundToInt(time_shoots.value) + "%";
+        s = value;
     }
 
     public void ammo(float value)
     {
         time_aText.text =time_a.value.ToString();
-        time_A = value;
+        a = value;
+        print(time_A);
     }
     public void maxBullets(float value)
     {
         time_bText.text = time_b.value.ToString();
-        time_B = value;
+        b = value;
     }
     public void speed(float value)
     {
         time_spText.text = time_sp.value.ToString();
-        time_Sp = value;
+        sp = value;
     }
     public void lifttime(float value)
     {
         time_lText.text = Mathf.RoundToInt(time_l.value * 100.0f) + "%";
-        time_L = value;
+        l = value;
     }
+
+
+    private void Update()
+    {
+         time_Sp = sp;
+          time_L =l;
+       time_A = a;
+        time_B = b;
+         time_S = s;
+    }
+
 }
