@@ -16,6 +16,7 @@ public class BulletManager : MonoBehaviour
     private const int maxRapidAmmo = 15;
     public float rapidAmmo = maxRapidAmmo;
     public Text text;
+    public Text tex;
     /// <summary>
     /// Decrease the number of active bullets
     /// </summary>
@@ -74,6 +75,7 @@ public class BulletManager : MonoBehaviour
         bulletMoveSpeed = 20.0f;
         bulletLifeTime = 1.5f;
         text.text = "Damage:" + 1;
+        tex.text = "Damage:" + 1;
     }
     public void chooseRapid()
     { 
@@ -83,6 +85,7 @@ public class BulletManager : MonoBehaviour
        bulletLifeTime = 1.0f;
 
         text.text = "Damage:" + 3;
+        tex.text = "Damage:" + 1;
     }
     public void chooseCustom()
     {
@@ -92,6 +95,7 @@ public class BulletManager : MonoBehaviour
         bulletLifeTime = c.time_l.value;
         MAX_BULLETS = c.time_b.value;
         text.text = "Damage:" + c.time_b.value;
+        tex.text = "Damage:" + c.time_b.value;
     }
     public void chooseC()
     {

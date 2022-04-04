@@ -13,6 +13,7 @@ public class Weaon_Menu : MonoBehaviour
     public GameObject pistols;
     public GameObject customf;
     public Text weapon;
+    public Text d;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,15 +32,22 @@ public class Weaon_Menu : MonoBehaviour
             {
                 menu.SetActive(true);
                 select = true;
+                d.enabled = false;
                 Debug.Log("YES");
             }
             else if (select)
             {
+              
                 menu.SetActive(false);
                 select = false;
                 Debug.Log("NO");
             }
 
+
+        }
+        if(select)
+        {
+            d.enabled = true;
 
         }
     }
