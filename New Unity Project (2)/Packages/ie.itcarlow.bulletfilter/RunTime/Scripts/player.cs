@@ -122,7 +122,7 @@ public class player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
 
-            _bulletManager.DIRECTION = -1;
+            _bulletManager.DIRECTION = 2;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {

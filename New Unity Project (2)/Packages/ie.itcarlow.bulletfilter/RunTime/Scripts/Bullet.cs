@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     public float bulletDirection;
     public float speed;
     public float lifetime;
-
+   
     // Update is called once per frame
 
     void Start()
@@ -18,14 +18,20 @@ public class Bullet : MonoBehaviour
         bulletManager.increaseBullets();
         if (bulletManager.DIRECTION == -1)
         {
-            transform.position = new Vector3(transform.position.x - 1.25f, transform.position.y - 0.8f, transform.position.z);
+            transform.position = new Vector3(transform.position.x - 1.25f, transform.position.y + 0.8f, transform.position.z);
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
         else
         {
             
-            transform.position = new Vector3(transform.position.x + 1.25f,transform.position.y - 0.8f,transform.position.z);
+            transform.position = new Vector3(0,transform.position.y - 0.8f,transform.position.z);
             
+        }
+        if (bulletManager.DIRECTION == 2)
+        {
+            speed *= -1;
+            transform.position = new Vector3(0, transform.position.y + 0.8f, transform.position.z);
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
     }
 
@@ -40,8 +46,13 @@ public class Bullet : MonoBehaviour
 
      void OnTriggerEnter2D(Collider2D t_other)
      {
-         bulletManager.decreaseBullets(); // decrease total number of bullets
-         StopCoroutine("livingTime"); // stop the co-routine before destroying  
+        if(t_other.tag=="enemy")
+        {
+            Destroy(gameObject); // destroy this after a set amount of time
+            bulletManager.decreaseBullets(); // decrease total number of bullets
+            StopCoroutine("livingTime"); // stop the co-routine before destroying  
+        }
+        
      }
 
 

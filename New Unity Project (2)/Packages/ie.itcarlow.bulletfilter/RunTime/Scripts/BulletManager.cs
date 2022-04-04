@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class BulletManager : MonoBehaviour
 {
     public GameObject bulletPrefab;
@@ -15,6 +15,7 @@ public class BulletManager : MonoBehaviour
     public int DIRECTION = 0;
     private const int maxRapidAmmo = 15;
     public float rapidAmmo = maxRapidAmmo;
+    public Text text;
     /// <summary>
     /// Decrease the number of active bullets
     /// </summary>
@@ -72,7 +73,7 @@ public class BulletManager : MonoBehaviour
 
         bulletMoveSpeed = 20.0f;
         bulletLifeTime = 1.5f;
-
+        text.text = "Damage:" + 1;
     }
     public void chooseRapid()
     { 
@@ -80,6 +81,8 @@ public class BulletManager : MonoBehaviour
        MAX_BULLETS = 2;
        bulletMoveSpeed = 40.0f;
        bulletLifeTime = 1.0f;
+
+        text.text = "Damage:" + 3;
     }
     public void chooseCustom()
     {
@@ -88,6 +91,7 @@ public class BulletManager : MonoBehaviour
         print("cust" + bulletMoveSpeed);
         bulletLifeTime = c.time_l.value;
         MAX_BULLETS = c.time_b.value;
+        text.text = "Damage:" + c.time_b.value;
     }
     public void chooseC()
     {
