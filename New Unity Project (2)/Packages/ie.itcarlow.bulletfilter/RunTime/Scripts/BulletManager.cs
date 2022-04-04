@@ -85,7 +85,7 @@ public class BulletManager : MonoBehaviour
        bulletLifeTime = 1.0f;
 
         text.text = "Damage:" + 3;
-        tex.text = "Damage:" + 1;
+        tex.text = "Damage:" + 3;
     }
     public void chooseCustom()
     {
