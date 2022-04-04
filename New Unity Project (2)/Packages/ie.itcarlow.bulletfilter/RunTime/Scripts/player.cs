@@ -121,12 +121,12 @@ public class player : MonoBehaviour
       
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-
+            this.transform.Rotate(new Vector3(0, 180, 0));
             _bulletManager.DIRECTION = 2;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-
+            this.transform.Rotate(new Vector3(0, 180, 0));
             _bulletManager.DIRECTION = 1;
         }
     }
